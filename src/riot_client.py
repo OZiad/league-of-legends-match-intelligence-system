@@ -60,10 +60,6 @@ class RiotClient:
         data = self._get(url)
         return data["puuid"]
 
-    """
-    /lol/match/v5/matches/by-puuid/{puuid}/ids/lol/match/v5/matches/by-puuid/{puuid}/ids
-    """
-
     def get_match_ids_by_puuid(
         self,
         puuid: str,
@@ -74,12 +70,13 @@ class RiotClient:
     ) -> list[str]:
 
         base = self._regional_host(regional_routing)
-        url = f"{base}/riot/account/v1/accounts/by-riot-id/{puuid}"
+        url = f"{base}/lol/match/v5/matches/by-puuid/{puuid}/ids"
         params: dict[str, Any] = {"start": start, "count": count}
 
         if queue is not None:
             params["queue"] = queue
 
+        print(f"here is the url: {url}")
         return self._get(url, params=params)
 
     def get_match(self, match_id: str, regional_routing: str) -> dict[str, Any]:
