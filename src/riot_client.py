@@ -76,7 +76,6 @@ class RiotClient:
         if queue is not None:
             params["queue"] = queue
 
-        print(f"here is the url: {url}")
         return self._get(url, params=params)
 
     def get_match(self, match_id: str, regional_routing: str) -> dict[str, Any]:
