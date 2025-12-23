@@ -1,17 +1,26 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 from src.services.data_fetcher import fetch_data
 from src.services.feature_extractor import (
-    extract_features_from_cache,
     FeatureExtractorConfig,
+    extract_features_from_cache,
 )
+from src.services.teamfight_detector import DBSCANConfig, detect_teamfights
 
 
 def main(refetch_data: bool = False):
     if refetch_data:
         fetch_data()
 
-    extract_features_from_cache(FeatureExtractorConfig())
+    features_csv = extract_features_from_cache(FeatureExtractorConfig())
+
+    detect_teamfights(
+        features_csv=Path(features_csv),
+        out_csv=Path("data/derived/detected_fights.csv"),
+        dbscan_cfg=DBSCANConfig(eps=0.9, min_samples=2),
+    )
 
 
 if __name__ == "__main__":
