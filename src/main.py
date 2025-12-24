@@ -7,10 +7,10 @@ from src.services.feature_extractor import (
     FeatureExtractorConfig,
     extract_features_from_cache,
 )
-from src.services.fight_summarizer import summarize_fights
-from src.services.teamfight_detector import DBSCANConfig, detect_teamfights
 from src.services.fight_query import load_summaries, run_query, save_query
+from src.services.fight_summarizer import summarize_fights
 from src.services.nl_query import parse_nl
+from src.services.teamfight_detector import DBSCANConfig, detect_teamfights
 
 
 def main(refetch_data: bool = False):
